@@ -10,3 +10,8 @@ export const negativeList = createSelector(selectFlightBookingState, (s) => s.ne
 export const selectFilteredFlights = createSelector(selectFlights, negativeList, (flights, negativeList) =>
   flights.filter((f) => !negativeList.includes(f.id))
 );
+
+export const selectFlightsWithProps = createSelector(
+  (a: FlightBookingAppState) => a.flightBooking.flights,
+  (flights, props: { blackList: number[] }) => flights.filter((f) => !props.blackList.includes(f.id))
+);

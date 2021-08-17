@@ -74,7 +74,7 @@ You can pass a property object to a selector when calling it. This object is ass
     ```typescript
     export const selectFlightsWithProps = createSelector(
         (a: FlightBookingAppState) => a.flightBooking.flights,
-        (flights, props) => flights.filter(f => !props.blackList.includes(f.id))
+        (flights, props: { blackList: number[] }) => flights.filter(f => !props.blackList.includes(f.id))
     );
     ```
 
