@@ -14,7 +14,7 @@ In this part of the lab, you'll add a selector that queries all the flights that
     ```typescript
     export interface State {
         flights: Flight[];
-        negativeList: number[]
+        negativeList: number[];
     }
 
     export const initialState: State = {
