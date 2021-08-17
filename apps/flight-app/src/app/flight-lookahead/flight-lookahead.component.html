@@ -19,5 +19,7 @@
         <td>{{f.date | date:'dd.MM.yyyy HH:mm'}}</td>
       </tr>
     </table>
+
+    <div [ngStyle]="{ 'background-color' : online ? 'green' : 'red' }">Online: {{ online }}</div>
   </div>
 </div>

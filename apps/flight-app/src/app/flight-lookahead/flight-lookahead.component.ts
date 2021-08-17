@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Flight } from '@flight-workspace/flight-lib';
-import { Observable } from 'rxjs';
+import { combineLatest, interval, Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { debounceTime, distinctUntilChanged, filter, switchMap, tap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, map, startWith, switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'flight-workspace-flight-lookahead',
@@ -13,21 +13,44 @@ import { debounceTime, distinctUntilChanged, filter, switchMap, tap } from 'rxjs
 export class FlightLookaheadComponent implements OnInit {
   control: FormControl;
   flights$: Observable<Flight[]>;
-  loading: boolean;
+  loading = false;
+  online = false;
+  online$: Observable<boolean>;
 
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
     this.control = new FormControl();
 
-    this.flights$ = this.control.valueChanges.pipe(
+    const input$ = this.control.valueChanges.pipe(
       debounceTime(300),
-      filter((input) => input.length > 2),
+      // filter((input) => input.length > 2),
+      distinctUntilChanged((x, y) => x === y)
+    );
+
+    this.online$ = interval(2000).pipe(
+      startWith(0),
+      map((_) => Math.random() < 0.5),
       distinctUntilChanged(),
+      tap((value) => (this.online = value))
+    );
+
+    this.flights$ = combineLatest([input$, this.online$]).pipe(
+      filter(([_, online]) => online),
+      map(([input, _]) => input),
       tap((input) => (this.loading = true)),
       switchMap((input) => this.load(input)),
       tap((v) => (this.loading = false))
     );
+
+    /*this.flights$ = this.control.valueChanges.pipe(
+      debounceTime(300),
+      // filter((input) => input.length > 2),
+      distinctUntilChanged(),
+      tap((input) => (this.loading = true)),
+      switchMap((input) => this.load(input)),
+      tap((v) => (this.loading = false))
+    );*/
   }
 
   load(from: string): Observable<Flight[]> {
