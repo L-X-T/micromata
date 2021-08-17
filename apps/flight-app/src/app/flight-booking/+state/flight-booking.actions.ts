@@ -7,3 +7,5 @@ export const flightsLoaded = createAction('[FlightBooking] FlightsLoaded', props
 export const updateFlight = createAction('[FlightBooking] Update Flight', props<{ flight: Flight }>());
 
 export const loadFlights = createAction('[FlightBooking] LoadFlights', props<{ from: string; to: string; urgent: boolean }>());
+
+export const loadFlightsError = createAction('[FlightBooking] Load Flights Error');
