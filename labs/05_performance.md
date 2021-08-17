@@ -42,6 +42,7 @@ Keep in mind that lazy loading only works if the module in question isn't refere
 2. Since Angular 8, we are using EcmaScript inline imports for lazy loading. To make them work, you have to adjust your ``tsconfig.app.json`` (in ``flight-app``):
     
     - Here, make sure, ``module`` is set to ``esnext``.
+    - This might also be set in the (included) root folder's ``tsconfig.base.json``.
 
 3. Open the file `app.routes.ts` and introduce a route with the path `flight-booking`. 
     It should point to the `FlightBookingModule` using `loadChildren`:
@@ -141,6 +142,14 @@ In this exercise you will implement Preloading using Angular's `PreloadAllModule
     </details>
 
 2. Make sure it works using the network tab within Chrome's dev tools. If it works, the lazy bundles are loaded **after** the app has been initializes. If this is the case, the chunks show up quite late in the water fall diagram.
+
+### Bonus: Implementing a Custom Preloading Strategy **
+
+1. [Here](https://softwarearchitekt.at/post/2016/10/02/optimizing-performance-with-preloading-and-the-new-angular-router.aspx) you find some information about creating a custom preloading strategy. Have a look at it.
+
+2. Create a custom preloading strategy that only preloads modules that have been marked with the `data` attribute in the router configuration.
+
+3. Configure the system to make use of it and test it.
 
 ## Improving Data Binding Performance with OnPush
 
@@ -290,11 +299,4 @@ Using the webpack-bundle-analyzer one can have a look at a bundle's content. In 
     cd dist/flight-app
     webpack-bundle-analyzer stats.json
     ```
-
-### Bonus: Implementing a Custom Preloading Strategy **
-
-1. [Here](https://softwarearchitekt.at/post/2016/10/02/optimizing-performance-with-preloading-and-the-new-angular-router.aspx) you find some information about creating a custom preloading strategy. Have a look at it.
-
-2. Create a custom preloading strategy that only preloads modules that have been marked with the `data` attribute in the router configuration.
-
-3. Configure the system to make use of it and test it.
+   
