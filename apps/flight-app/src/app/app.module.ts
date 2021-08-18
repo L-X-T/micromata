@@ -23,6 +23,7 @@ import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { LoggerModule } from '@flight-workspace/logger-lib';
+import { CustomLogFormatterService } from './shared/logging/custom-log-formatter.service';
 
 @NgModule({
   imports: [
@@ -35,7 +36,7 @@ import { LoggerModule } from '@flight-workspace/logger-lib';
     FlightCancellingModule,
 
     FlightLibModule.forRoot(),
-    LoggerModule.forRoot({ enableDebug: true }),
+    LoggerModule.forRoot({ enableDebug: true, logFormatterType: CustomLogFormatterService }),
     SharedModule.forRoot(),
 
     RouterModule.forRoot(APP_ROUTES, {
