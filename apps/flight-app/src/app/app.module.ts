@@ -22,22 +22,25 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
+import { LoggerModule } from '@flight-workspace/logger-lib';
 
 @NgModule({
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
-    // FlightBookingModule,
     ReactiveFormsModule,
 
-    BrowserAnimationsModule,
+    // FlightBookingModule,
     FlightCancellingModule,
 
     FlightLibModule.forRoot(),
+    LoggerModule.forRoot({ enableDebug: true }),
     SharedModule.forRoot(),
+
     RouterModule.forRoot(APP_ROUTES, {
       preloadingStrategy: PreloadAllModules,
-      relativeLinkResolution: 'legacy'
+      relativeLinkResolution: 'legacy' // https://bit.ly/relativeLinkResolution
     }),
 
     StoreModule.forRoot(reducers, { metaReducers }),
