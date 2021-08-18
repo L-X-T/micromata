@@ -10,6 +10,8 @@
     "test": "ng test",
     "lint": "nx workspace-lint && ng lint",
     "e2e": "ng e2e",
+    "e2e:f-a": "ng e2e flight-app-e2e",
+    "e2e:f-a:watch": "ng e2e flight-app-e2e --watch",
     "json-server": "json-server db.json -p 3000",
     "copy:ce": "cpr dist/apps/external/main.js apps/dashboard/src/assets/external-dashboard-tile.bundle.js -o",
     "affected:apps": "nx affected:apps",
