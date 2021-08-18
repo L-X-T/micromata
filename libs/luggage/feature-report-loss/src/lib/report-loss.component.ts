@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ReportLossFacade } from '@flight-workspace/luggage/domain';
 
 @Component({
@@ -7,22 +7,15 @@ import { ReportLossFacade } from '@flight-workspace/luggage/domain';
   styleUrls: ['./report-loss.component.scss']
 })
 export class ReportLossComponent implements OnInit {
-    
-    
-    lossReportList$ = this.reportLossFacade.lossReportList$;
+  lossReportList$ = this.reportLossFacade.lossReportList$;
 
+  constructor(private reportLossFacade: ReportLossFacade) {}
 
-    constructor(private reportLossFacade: ReportLossFacade) {
-    }
+  ngOnInit(): void {
+    this.load();
+  }
 
-    
-    ngOnInit() {
-        this.load();
-    }
-
-    load(): void {
-        this.reportLossFacade.load();
-    }
-
+  load(): void {
+    this.reportLossFacade.load();
+  }
 }
-

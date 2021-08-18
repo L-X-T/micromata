@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CheckinFacade } from '@flight-workspace/luggage/domain';
 
 @Component({
@@ -7,22 +7,15 @@ import { CheckinFacade } from '@flight-workspace/luggage/domain';
   styleUrls: ['./checkin.component.scss']
 })
 export class CheckinComponent implements OnInit {
-    
-    
-    luggageList$ = this.checkinFacade.luggageList$;
+  luggageList$ = this.checkinFacade.luggageList$;
 
+  constructor(private checkinFacade: CheckinFacade) {}
 
-    constructor(private checkinFacade: CheckinFacade) {
-    }
+  ngOnInit(): void {
+    this.load();
+  }
 
-    
-    ngOnInit() {
-        this.load();
-    }
-
-    load(): void {
-        this.checkinFacade.load();
-    }
-
+  load(): void {
+    this.checkinFacade.load();
+  }
 }
-
